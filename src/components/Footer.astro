@@ -1,0 +1,30 @@
+---
+const links = [
+  { href: '/', label: 'בית' },
+  { href: '/workshops', label: 'סדנאות פתוחות' },
+  { href: '/private', label: 'אירועים פרטיים' },
+  { href: '/tracks', label: 'מסלולים' },
+  { href: '/recommendations', label: 'המלצות' },
+  { href: '/gallery', label: 'גלריה' },
+  { href: '/contact', label: 'צור קשר' },
+];
+---
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <a class="footer-brand" href="/" aria-label="More &amp; Mor">
+        <img
+          src="/images/LOGOS/1000174508.jpg"
+          alt="More &amp; Mor"
+          width="1600"
+          height="800"
+        />
+      </a>
+      <p>סדנאות יצירה ובוטיק חווייתיות בהובלת חגית וגילי (אמא ובת) בכפר יונה.</p>
+    </div>
+    <nav class="footer-nav" aria-label="תחתון">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+  </div>
+</footer>

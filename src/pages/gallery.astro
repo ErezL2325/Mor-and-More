@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { listImages } from '../lib/media.js';
+
+const images = listImages('gallery');
+---
+
+<BaseLayout title="גלריה | More & Mor">
+  <div class="wrap page-head">
+    <hr class="rule" />
+    <h1>גלריה</h1>
+  </div>
+
+  <div class="wrap section">
+    {
+      images.length === 0 ? (
+        <div class="gallery-grid">
+          {Array.from({ length: 6 }).map(() => (
+            <div class="ph">תמונה תוחלף</div>
+          ))}
+        </div>
+      ) : (
+        <div class="gallery-grid">
+          {images.map((src) => (
+            <img src={src} alt="" loading="lazy" />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>

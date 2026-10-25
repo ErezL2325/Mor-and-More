@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Picture from '../components/Picture.astro';
+import { listImages } from '../lib/media.js';
+
+const images = listImages('tracks');
+---
+
+<BaseLayout title="מסלולי יצירה | More & Mor" description="שלושה מסלולי יצירה לאירוע פרטי.">
+  <div class="wrap page-head">
+    <hr class="rule" />
+    <h1>מסלולי יצירה לאירועים פרטיים</h1>
+    <p class="lead">בחרו את מסלול היצירה לאירוע שלכם. שלושה מסלולים לפי משך, תוכן ומסגרת תקציב.</p>
+  </div>
+
+  <div class="wrap section">
+    <div class="tracks">
+      <article class="card track">
+        <Picture src={images[0]} alt="סדנת פריטי נוי לבית" />
+        <h2>סדנת פריטי נוי לבית</h2>
+        <p>היכרות עם החומר, יציקה לשבלונות, משחק עם צבעים, 2 פריטי נוי קטנים ומעוצבים.</p>
+        <p>אורך: כשעה וחצי.</p>
+      </article>
+      <article class="card track">
+        <Picture src={images[1]} alt="סדנת כלים בטכניקת מארבל" />
+        <h2>סדנת כלים בטכניקת מארבל</h2>
+        <p>ערבוב צבעים וגוון בטכניקת שיש. 2 כלים מעוצבים בגדלים שונים.</p>
+        <p>אורך: שעתיים.</p>
+      </article>
+      <article class="card track">
+        <Picture src={images[2]} alt="סדנת פרימיום: מארבל וטרצו" />
+        <h2>סדנת פרימיום: מארבל וטרצו</h2>
+        <p>המסלול המלא. טכניקת טרצו ושיש עם שבבים צבעוניים. 2 כלים מעוצבים, קטן וגדול.</p>
+        <p>אורך: כשעתיים וחצי.</p>
+      </article>
+    </div>
+
+    {
+      images.length > 3 && (
+        <div class="media-strip">
+          {images.slice(3).map((src) => (
+            <Picture src={src} alt="" />
+          ))}
+        </div>
+      )
+    }
+
+    <div class="notes">
+      <ul>
+        <li>הסדנאות כוללות הפסקה בת 20 דקות.</li>
+        <li>ניתן לשדרג כל סדנה ולהוסיף שולחן כיבוד מפנק ועשיר.</li>
+        <li>העלויות כוללות את כל חומרי העבודה, הציוד, הדרכה צמודה של שתי מנחות, ואריזות אישיות לתוצרים.</li>
+        <li>מחיר: <span class="missing">[חסר: מחירון שלושת המסלולים, ותוספת כיבוד.]</span></li>
+      </ul>
+      <a class="btn" href="/contact">נתכנן את האירוע</a>
+    </div>
+  </div>
+</BaseLayout>

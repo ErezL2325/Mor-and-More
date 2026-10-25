@@ -1,0 +1,27 @@
+---
+interface Props {
+  src?: string;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+}
+
+const { src, alt, eager = false } = Astro.props;
+const className = Astro.props.class;
+---
+
+{
+  src ? (
+    <img
+      src={src}
+      alt={alt}
+      class={className}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : 'auto'}
+    />
+  ) : (
+    <div class:list={['ph', className]} role="img" aria-label="תמונה תוחלף">
+      תמונה תוחלף
+    </div>
+  )
+}

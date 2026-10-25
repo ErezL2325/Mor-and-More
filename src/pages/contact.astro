@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Picture from '../components/Picture.astro';
+import { firstImage, listImages } from '../lib/media.js';
+
+const contactImages = listImages('contact');
+const contactImage = firstImage('contact');
+---
+
+<BaseLayout title="צור קשר | More & Mor" description="בואו נתכנן את האירוע הבא שלכם.">
+  <div class="wrap page-head">
+    <hr class="rule" />
+    <h1>בואו נתכנן את האירוע הבא שלכם.</h1>
+  </div>
+
+  <div class="wrap contact-grid">
+    <div>
+      <p>
+        מחפשים פעילות מקורית, מעוצבת ומפנקת? ספרו לנו איזה אירוע אתם מתכננים, ונחזור אליכם עם מסלול מותאם אישית של
+        זמן, תוכן ותקציב. אנו זמינות עבורכם לכל שאלה.
+      </p>
+      <ul class="details-list">
+        <li>טלפון: <span class="missing">[חסר: טלפון]</span></li>
+        <li>מייל: <span class="missing">[חסר: מייל]</span></li>
+        <li>אינסטגרם: <span class="missing">[חסר: כתובת]</span></li>
+        <li>פייסבוק: <span class="missing">[חסר: כתובת]</span></li>
+        <li>מיקום: כפר יונה</li>
+      </ul>
+      {contactImages.length > 0 && <Picture src={contactImage} alt="צור קשר" />}
+    </div>
+
+    <form id="contact-form">
+      <label for="name">שם</label>
+      <input id="name" name="name" type="text" autocomplete="name" />
+
+      <label for="phone">טלפון</label>
+      <input id="phone" name="phone" type="tel" autocomplete="tel" />
+
+      <label for="type">סוג פנייה</label>
+      <select id="type" name="type">
+        <option value=""></option>
+        <option value="open">סדנה פתוחה</option>
+        <option value="teams">גיבוש</option>
+        <option value="bachelorette">מסיבת רווקות</option>
+        <option value="family">משפחה</option>
+        <option value="duo">זוגי או חברות</option>
+        <option value="women">ערב נשים</option>
+        <option value="other">אחר</option>
+      </select>
+
+      <label for="message">הודעה</label>
+      <textarea id="message" name="message"></textarea>
+
+      <button class="btn" type="submit">שליחה</button>
+      <p id="form-status" class="form-status" hidden></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+    const typeField = document.getElementById('type');
+
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get('type');
+    if (type && typeField instanceof HTMLSelectElement) {
+      const allowed = ['open', 'teams', 'bachelorette', 'family', 'duo', 'women', 'other'];
+      if (allowed.includes(type)) typeField.value = type;
+    }
+
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (status) {
+        status.hidden = false;
+        status.textContent = 'הטופס עדיין לא מחובר';
+      }
+    });
+  </script>
+</BaseLayout>
